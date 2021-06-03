@@ -1,23 +1,31 @@
 package com.avl.mvc;
 
-
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/mars")
+/*controllerMapping*/
 public class MyController {
 
-    public MyController(){}
-    
+    public MyController() {
+    }
+
+    @RequestMapping("/")/*methodMapping*/
+    public String showWelcomePage() {
+        return "welcome-view";
+    }
+
     @RequestMapping("/first-view")
-    public String ShowFirstView() {
+    public String showFirstView() {
         return "first-view";
     }
 
     @RequestMapping("/second-view")
-    public String ShowSecondView() {
+    public String showSecondView() {
         return "second-view";
     }
 
@@ -26,6 +34,7 @@ public class MyController {
         return "ask-mars-weather";
     }
 
+    //example of building the controller via 
     //add Name to Model
     @RequestMapping("/showWeather")
     public String showMarsWeather(HttpServletRequest request, Model model) {
@@ -34,7 +43,31 @@ public class MyController {
         //changing name
         visitorName = "Mr. " + visitorName;
         //add changed name of attribute("nameAttribute") and value for it(visitorName)
+        //able to add few attributes
         model.addAttribute("nameAttribute", visitorName);
         return "show-mars-weather";
+    }
+
+    @RequestMapping("/askSeason")
+    public String askMarsSeason() {
+        return "ask-mars-season";
+    }
+
+    //@RequestParam annotation link a field of form ("seasonType") with
+    //method's parameter String seasonType
+    @RequestMapping("/showMarsSeason")
+    public String showMarsSeason(@RequestParam("seasonType") String seasonType,
+            Model model) {
+
+        model.addAttribute("typeMarsSeason", seasonType);
+        return "show-mars-season";
+    }
+
+    @RequestMapping("/showAstronautForm")
+    public String showAstronautParam(Model model) {
+        
+        model.addAttribute("astronaut", new Astronaut());
+        
+        return "ask-astronaut-param";
     }
 }
