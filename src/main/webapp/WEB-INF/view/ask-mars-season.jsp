@@ -9,9 +9,8 @@
         <form action="showMarsSeason" method="get">
             <input type="text" name="seasonType"
                    placeholder="Let's change the season!"/>
-            <input type="submit"/>
+            <input type="submit" value="Change it!"/>
         </form>
-
     </body>
 
 </html>
